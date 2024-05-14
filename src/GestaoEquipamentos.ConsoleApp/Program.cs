@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using GestaoDeEquipamentos.ConsoleApp;
+using System.Linq.Expressions;
+using System.Text;
 
 namespace GestaoEquipamentos.ConsoleApp
 {
@@ -8,9 +10,11 @@ namespace GestaoEquipamentos.ConsoleApp
 
         static int contadorEquipamentosCadastrados = 0;
         static void Main(string[] args)
-        {
-            equipamentos[contadorEquipamentosCadastrados++] =
-                new Equipamento("Notebook", "AEX120", "Acer", 2000.00m, DateTime.Now);
+        { 
+           Equipamento equiptest =  new Equipamento("Notebook", "AEX120", "Acer", 2000.00m, DateTime.Now);
+            equiptest.Id = GeradorId.GerarIdEquipamento();
+
+            equipamentos[contadorEquipamentosCadastrados++] = equiptest;
 
             bool opcaoSairEscolhida = false;
 
@@ -110,6 +114,8 @@ namespace GestaoEquipamentos.ConsoleApp
 
             Equipamento equipamento = new Equipamento(nome, numeroSerie, Fabricante, precoAquisicao, dataFabricacao);
 
+            equipamento.Id = GeradorId.GerarIdEquipamento();
+
             equipamentos[contadorEquipamentosCadastrados++] = equipamento;
 
             Exibirmensagem("O equipamento foi cadastrado com sucesso!", ConsoleColor.Green);
@@ -170,31 +176,47 @@ namespace GestaoEquipamentos.ConsoleApp
 
             Console.WriteLine();
 
-            //saber qual equipamento editar
             VisualizarEquipamentos(false);
 
             Console.Write("Digite o Id do equipamento que deseja editar:");
-            int equipamentoEscolhido = Convert.ToInt32(Console.ReadLine());
+            int idEquipamentoEscolhido = Convert.ToInt32(Console.ReadLine());
 
-            Equipamento equipamentoEncontrado = EncontrarEquipamentoPorId(equipamentoEscolhido);
-
-            // recadastrar as informações do equipamento
-            Console.WriteLine();
+            if (!EquipamentoExiste(idEquipamentoEscolhido))
+            {
+                Console.WriteLine("O equipamento mencionado não existe.", ConsoleColor.DarkYellow);
+                return;
+            }
 
             Console.Write("Digite o nome do equipamento:");
-            equipamentoEncontrado.Nome = Console.ReadLine();
-
+            string nome = Console.ReadLine();
             Console.Write("Digite o número da série:");
-            equipamentoEncontrado.NumeroSerie = Console.ReadLine();
+            string numeroSerie = Console.ReadLine();
 
             Console.Write("Digite o nome do fabricante do equipamento:");
-            equipamentoEncontrado.Fabricante = Console.ReadLine();
+            string fabricante = Console.ReadLine();
 
             Console.Write("Digite o preço de aquisição do equipamento: R$");
-            equipamentoEncontrado.PrecoAquisicao = Convert.ToDecimal(Console.ReadLine());
+            decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
 
             Console.Write("Digite a data de fabricação do equipamento: (formato dd-mm-aaaa)");
-            equipamentoEncontrado.DataFabricacao = Convert.ToDateTime(Console.ReadLine());
+            DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
+
+            Equipamento novoEquipamento = 
+                new Equipamento(nome, numeroSerie, fabricante, precoAquisicao, dataFabricacao);
+
+            novoEquipamento.Id = idEquipamentoEscolhido;
+
+            for (int i = 0; i < equipamentos.Length; i++)
+            {
+                if (equipamentos[i] == null)
+                    continue;
+
+                else if (equipamentos[i].Id == idEquipamentoEscolhido)
+                {
+                    equipamentos[i] = novoEquipamento;
+                    break;
+                }
+            }
 
             Console.WriteLine(equipamentos);
 
