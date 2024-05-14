@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using GestaoDeEquipamentos.ConsoleApp;
 
 namespace GestaoEquipamentos.ConsoleApp
 {
     public class Equipamento
     {
+        public int Id;
         public string Nome;
         public string NumeroSerie;
         public string Fabricante;
@@ -16,6 +14,7 @@ namespace GestaoEquipamentos.ConsoleApp
 
         public Equipamento(string nome, string numeroSerie, string fabricante, decimal precoAquisicao, DateTime dataFabricacao)
         {
+            Id = GeradorId.GerarIdEquipamento();
             Nome = nome;
             NumeroSerie = numeroSerie;
             Fabricante = fabricante;
@@ -23,4 +22,6 @@ namespace GestaoEquipamentos.ConsoleApp
             DataFabricacao = dataFabricacao;
         }
     }
+
+
 }
