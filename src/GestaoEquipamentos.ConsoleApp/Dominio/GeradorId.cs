@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GestaoDeEquipamentos.ConsoleApp
+namespace GestaoEquipamentos.ConsoleApp.Dominio
 {
     public static class GeradorId
     {

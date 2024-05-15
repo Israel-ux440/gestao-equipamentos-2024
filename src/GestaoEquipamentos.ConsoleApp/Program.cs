@@ -1,4 +1,4 @@
-﻿using GestaoDeEquipamentos.ConsoleApp;
+﻿using GestaoEquipamentos.ConsoleApp.Dominio;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -39,50 +39,17 @@ namespace GestaoEquipamentos.ConsoleApp
 
                 switch (opcaoEscolhida)
                 {
-                    case '1': GerenciarEquipamentos(); break;
+                    case '1': 
+                        
+                        break;
                     case '2': GerenciarChamados(); break;
-                    case '3': break;
-
+                              
                     default: opcaoSairEscolhida = true; break;
-                }
-
-                static void GerenciarEquipamentos()
-                {
-                    Console.Clear();
-
-                    Console.WriteLine("---------------------------------------");
-                    Console.WriteLine("         GESTÃO DE EQUIPAMENTOS        ");
-                    Console.WriteLine("---------------------------------------");
-
-                    Console.WriteLine("1 - Cadasrtar Equipamentos");
-                    Console.WriteLine("2 - Editar Equipamentos ");
-                    Console.WriteLine("3 - Excluir Equipamentos");
-                    Console.WriteLine("4 - Visualizar Equipamentos");
-
-                    Console.WriteLine("S - Voltar");
-                    Console.WriteLine();
-
-                    Console.Write("Escolha uma das opções:");
-                    char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
-
-                    switch (operacaoEscolhida)
-                    {
-                        case '1': CadastarEquipamento(); break;
-                        case '2': EditarEquipamento(); break;
-                        case '3': ExcluirEquipamento(); break;
-                        case '4': VisualizarEquipamentos(true); break;
-
-                        default:; break;
-
-                    }
-
-
                 }
 
             }
 
         }
-
         private static void CadastarEquipamento()
         {
             Console.Clear();
